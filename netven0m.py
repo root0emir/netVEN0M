@@ -5,16 +5,21 @@ import os
 
 banner = r'''
                                                                                                 
-                                                                                                
-                               ||   / /     //   / /     /|    / /      ___        /|    //| | 
-     __        ___     __  ___ ||  / /     //____       //|   / /     //   ) )    //|   // | | 
-  //   ) )   //___) )   / /    || / /     / ____       // |  / /     //   / /    // |  //  | | 
- //   / /   //         / /     ||/ /     //           //  | / /     //   / /    //  | //   | | 
-//   / /   ((____     / /      |  /     //____/ /    //   |/ /     ((___/ /    //   |//    | | 
+
+             ___      ________ _   _  ___  __  __ 
+            | \ \    / /  ____| \ | |/ _ \|  \/  |
+  _ __   ___| |\ \  / /| |__  |  \| | | | | \  / |
+ | '_ \ / _ \ __\ \/ / |  __| | . ` | | | | |\/| |
+ | | | |  __/ |_ \  /  | |____| |\  | |_| | |  | |
+ |_| |_|\___|\__| \/   |______|_| \_|\___/|_|  |_|
+                                                  
+                                                  
+
 
 netVEN0M by root0emir
 
 It is for educational purposes only; please do not use it for unethical activities.
+
 '''
 print(banner)
 
@@ -51,7 +56,7 @@ def brute_force(bssid, interface, wordlist):
         auth_pkt = RadioTap()/Dot11(addr1=bssid, addr2=RandMAC(), addr3=bssid)/Dot11Auth(seqnum=1, algo=0, status=0)
         sendp(auth_pkt, iface=interface, verbose=0)
         
-        time.sleep(0.1) 
+        time.sleep(0.2) 
 
         ans = sniff(iface=interface, count=1, timeout=5)  
         if ans:  
